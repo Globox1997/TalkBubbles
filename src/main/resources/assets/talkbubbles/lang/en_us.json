@@ -3,5 +3,6 @@
     "text.autoconfig.talkbubbles.option.chatColor": "Chat Color",
     "text.autoconfig.talkbubbles.option.chatTime": "Chat Time",
     "text.autoconfig.talkbubbles.option.backgroundOpacity": "Background Opacity",
-    "text.autoconfig.talkbubbles.option.maxChatWidth": "Chat Width"
+    "text.autoconfig.talkbubbles.option.maxChatWidth": "Chat Width",
+    "text.autoconfig.talkbubbles.option.chatRange": "Chat Range"
 }

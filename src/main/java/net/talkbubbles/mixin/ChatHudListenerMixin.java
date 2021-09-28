@@ -30,14 +30,12 @@ public class ChatHudListenerMixin {
     @Inject(method = "onChatMessage", at = @At("HEAD"))
     private void onChatMessageMixin(MessageType messageType, Text message, UUID sender, CallbackInfo info) {
         if (messageType == MessageType.CHAT) {
-            List<OtherClientPlayerEntity> list = client.world.getEntitiesByClass(OtherClientPlayerEntity.class, client.player.getBoundingBox().expand(20D), EntityPredicates.EXCEPT_SPECTATOR);
+            List<OtherClientPlayerEntity> list = client.world.getEntitiesByClass(OtherClientPlayerEntity.class, client.player.getBoundingBox().expand(TalkBubbles.CONFIG.chatRange),
+                    EntityPredicates.EXCEPT_SPECTATOR);
             for (int i = 0; i < list.size(); i++)
                 if (list.get(i).getUuid().equals(sender)) {
                     String stringMessage = message.getString();
                     stringMessage = stringMessage.replace("<" + StringUtils.substringBetween(stringMessage, "<", ">") + "> ", "");
-
-                    // System.out.println("X" + stringMessage + "X");
-
                     String[] string = stringMessage.split(" ");
                     List<String> stringList = new ArrayList<>();
                     String stringCollector = "";
@@ -71,7 +69,9 @@ public class ChatHudListenerMixin {
                             }
                         }
                     }
-                    System.out.println("Width: " + width + "; Height: " + height);
+
+                    if (width % 2 != 0)
+                        width++;
 
                     ((OtherClientPlayerEntityAccessor) list.get(i)).setChatText(stringList, list.get(i).age, width, height);
                     break;

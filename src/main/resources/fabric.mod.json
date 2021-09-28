@@ -8,8 +8,9 @@
     "Globox_Z"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/talkbubbles",
+    "sources": "https://github.com/Globox1997/TalkBubbles",
+    "issues": "https://github.com/Globox1997/TalkBubbles/issues"
   },
   "license": "MIT",
   "icon": "assets/talkbubbles/icon.png",

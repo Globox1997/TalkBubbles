@@ -1,9 +1,14 @@
-# Fabric Example Mod
+# TalkBubbles
 
-## Setup
+TalkBubbles adds bubbles above your head when texting other players.
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+### Installation
 
-## License
+TalkBubbles is a mod built for the [Fabric Loader](https://fabricmc.net/). It
+requires [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)
+and [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config) to be installed separately; all other
+dependencies are installed with the mod.
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+### License
+
+TalkBubbles is licensed under MIT.

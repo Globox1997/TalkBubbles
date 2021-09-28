@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "talkbubbles",
+  "version": "${version}",
+  "name": "Talk Bubbles",
+  "description": "Talk Bubbles add bubbles above your head",
+  "authors": [
+    "Globox_Z"
+  ],
+  "contact": {
+    "homepage": "https://fabricmc.net/",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+  "license": "MIT",
+  "icon": "assets/talkbubbles/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.talkbubbles.TalkBubbles"
+    ],
+    "modmenu": [
+      "net.talkbubbles.config.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "talkbubbles.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16",
+    "cloth-config2": ">=5.0.34"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

@@ -40,7 +40,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
             CallbackInfo info) {
         if (abstractClientPlayerEntity instanceof OtherClientPlayerEntity) {
             int oldAge = ((OtherClientPlayerEntityAccessor) abstractClientPlayerEntity).getOldAge();
-            if (oldAge != 0) {
+            if (oldAge != 0 && oldAge != -1) {
                 if (abstractClientPlayerEntity.age - oldAge > TalkBubbles.CONFIG.chatTime)
                     ((OtherClientPlayerEntityAccessor) abstractClientPlayerEntity).setChatText(null, 0, 0, 0);
                 List<String> textList = ((OtherClientPlayerEntityAccessor) abstractClientPlayerEntity).getChatText();

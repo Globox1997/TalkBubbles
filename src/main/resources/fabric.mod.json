@@ -27,11 +27,11 @@
     "talkbubbles.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.11.3",
+    "fabricloader": ">=0.12.5",
     "fabric": "*",
-    "minecraft": "1.17.x",
-    "java": ">=16",
-    "cloth-config2": ">=5.0.34"
+    "minecraft": "1.18.x",
+    "java": ">=17",
+    "cloth-config2": ">=6.0.42"
   },
   "suggests": {
     "another-mod": "*"

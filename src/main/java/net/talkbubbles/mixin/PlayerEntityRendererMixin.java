@@ -56,7 +56,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
 
                     matrixStack.scale(-0.025F, -0.025F, 0.025F);
 
-                    Matrix4f matrix4f = matrixStack.peek().getModel();
+                    Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();
                     TextRenderer textRenderer = this.getTextRenderer();
 
                     RenderSystem.setShaderColor(TalkBubbles.CONFIG.backgroundRed, TalkBubbles.CONFIG.backgroundGreen, TalkBubbles.CONFIG.backgroundBlue, TalkBubbles.CONFIG.backgroundOpacity);

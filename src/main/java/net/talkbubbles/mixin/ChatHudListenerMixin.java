@@ -2,9 +2,9 @@ package net.talkbubbles.mixin;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -17,7 +17,8 @@ import net.fabricmc.api.EnvType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHudListener;
 import net.minecraft.client.network.OtherClientPlayerEntity;
-import net.minecraft.network.MessageType;
+import net.minecraft.network.message.MessageSender;
+import net.minecraft.network.message.MessageType;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
 import net.talkbubbles.TalkBubbles;
@@ -31,12 +32,12 @@ public class ChatHudListenerMixin {
     private MinecraftClient client;
 
     @Inject(method = "onChatMessage", at = @At("HEAD"))
-    private void onChatMessageMixin(MessageType messageType, Text message, UUID sender, CallbackInfo info) {
-        if (messageType == MessageType.CHAT) {
+    private void onChatMessageMixin(MessageType type, Text message, @Nullable MessageSender sender, CallbackInfo info) {
+        if (sender != null && type.chat().isPresent()) {
             List<OtherClientPlayerEntity> list = client.world.getEntitiesByClass(OtherClientPlayerEntity.class, client.player.getBoundingBox().expand(TalkBubbles.CONFIG.chatRange),
                     EntityPredicates.EXCEPT_SPECTATOR);
             for (int i = 0; i < list.size(); i++)
-                if (list.get(i).getUuid().equals(sender)) {
+                if (list.get(i).getUuid().equals(sender.uuid())) {
                     String stringMessage = message.getString();
                     stringMessage = stringMessage.replace("<" + StringUtils.substringBetween(stringMessage, "<", ">") + "> ", "");
                     String[] string = stringMessage.split(" ");

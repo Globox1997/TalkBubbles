@@ -38,7 +38,7 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
     @Inject(method = "render", at = @At("HEAD"))
     private void renderMixin(AbstractClientPlayerEntity abstractClientPlayerEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i,
             CallbackInfo info) {
-        if (abstractClientPlayerEntity instanceof OtherClientPlayerEntity) {
+        if (abstractClientPlayerEntity instanceof OtherClientPlayerEntity && !abstractClientPlayerEntity.isInvisible()) {
             int oldAge = ((OtherClientPlayerEntityAccessor) abstractClientPlayerEntity).getOldAge();
             if (oldAge != 0 && oldAge != -1) {
                 if (abstractClientPlayerEntity.age - oldAge > TalkBubbles.CONFIG.chatTime)

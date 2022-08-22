@@ -6,8 +6,8 @@
   "mixins": [],
   "client": [
     "PlayerEntityRendererMixin",
-    "ChatHudListenerMixin",
-    "OtherClientPlayerEntityMixin"
+    "OtherClientPlayerEntityMixin",
+    "ChatHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1

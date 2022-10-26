@@ -14,6 +14,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextVisitFactory;
 import net.minecraft.client.gui.hud.ChatHud;
@@ -26,6 +28,7 @@ import net.minecraft.util.Util;
 import net.talkbubbles.TalkBubbles;
 import net.talkbubbles.accessor.OtherClientPlayerEntityAccessor;
 
+@Environment(EnvType.CLIENT)
 @Mixin(ChatHud.class)
 public class ChatHudMixin {
 

@@ -20,13 +20,13 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextVisitFactory;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.gui.hud.MessageIndicator;
-import net.minecraft.client.network.OtherClientPlayerEntity;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.network.message.MessageSignatureData;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 import net.talkbubbles.TalkBubbles;
-import net.talkbubbles.accessor.OtherClientPlayerEntityAccessor;
+import net.talkbubbles.accessor.ClientPlayerEntityAccessor;
 
 @Environment(EnvType.CLIENT)
 @Mixin(ChatHud.class)
@@ -41,8 +41,10 @@ public class ChatHudMixin {
     @Inject(method = "Lnet/minecraft/client/gui/hud/ChatHud;addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;Lnet/minecraft/client/gui/hud/MessageIndicator;)V", at = @At("HEAD"))
     private void addMessageMixin(Text message, @Nullable MessageSignatureData signature, @Nullable MessageIndicator indicator, CallbackInfo info) {
         if (extractSender(message) != null) {
-            List<OtherClientPlayerEntity> list = client.world.getEntitiesByClass(OtherClientPlayerEntity.class, client.player.getBoundingBox().expand(TalkBubbles.CONFIG.chatRange),
+            List<ClientPlayerEntity> list = client.world.getEntitiesByClass(ClientPlayerEntity.class, client.player.getBoundingBox().expand(TalkBubbles.CONFIG.chatRange),
                     EntityPredicates.EXCEPT_SPECTATOR);
+            if (!TalkBubbles.CONFIG.showOwnBubble)
+                list.remove(client.player);
             for (int i = 0; i < list.size(); i++)
                 if (list.get(i).getUuid().equals(extractSender(message))) {
                     String stringMessage = message.getString();
@@ -84,7 +86,7 @@ public class ChatHudMixin {
                     if (width % 2 != 0)
                         width++;
 
-                    ((OtherClientPlayerEntityAccessor) list.get(i)).setChatText(stringList, list.get(i).age, width, height);
+                    ((ClientPlayerEntityAccessor) list.get(i)).setChatText(stringList, list.get(i).age, width, height);
                     break;
                 }
         }

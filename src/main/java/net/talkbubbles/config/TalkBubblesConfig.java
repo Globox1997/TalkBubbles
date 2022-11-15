@@ -17,5 +17,6 @@ public class TalkBubblesConfig implements ConfigData {
     public float backgroundRed = 1.0F;
     public float backgroundGreen = 1.0F;
     public float backgroundBlue = 1.0F;
+    public boolean showOwnBubble = false;
 
 }

@@ -5,14 +5,11 @@ import java.util.List;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 
-import net.fabricmc.api.Environment;
-import net.fabricmc.api.EnvType;
-import net.minecraft.client.network.OtherClientPlayerEntity;
-import net.talkbubbles.accessor.OtherClientPlayerEntityAccessor;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.talkbubbles.accessor.ClientPlayerEntityAccessor;
 
-@Environment(EnvType.CLIENT)
-@Mixin(OtherClientPlayerEntity.class)
-public class OtherClientPlayerEntityMixin implements OtherClientPlayerEntityAccessor {
+@Mixin(AbstractClientPlayerEntity.class)
+public class AbstractClientPlayerEntityMixin implements ClientPlayerEntityAccessor {
 
     @Nullable
     private List<String> chatTextList = null;
@@ -48,5 +45,4 @@ public class OtherClientPlayerEntityMixin implements OtherClientPlayerEntityAcce
     public int getHeight() {
         return this.height;
     }
-
 }

@@ -20,13 +20,13 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextVisitFactory;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.gui.hud.MessageIndicator;
-import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.network.message.MessageSignatureData;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 import net.talkbubbles.TalkBubbles;
-import net.talkbubbles.accessor.ClientPlayerEntityAccessor;
+import net.talkbubbles.accessor.AbstractClientPlayerEntityAccessor;
 
 @Environment(EnvType.CLIENT)
 @Mixin(ChatHud.class)
@@ -41,7 +41,7 @@ public class ChatHudMixin {
     @Inject(method = "Lnet/minecraft/client/gui/hud/ChatHud;addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;Lnet/minecraft/client/gui/hud/MessageIndicator;)V", at = @At("HEAD"))
     private void addMessageMixin(Text message, @Nullable MessageSignatureData signature, @Nullable MessageIndicator indicator, CallbackInfo info) {
         if (extractSender(message) != null) {
-            List<ClientPlayerEntity> list = client.world.getEntitiesByClass(ClientPlayerEntity.class, client.player.getBoundingBox().expand(TalkBubbles.CONFIG.chatRange),
+            List<AbstractClientPlayerEntity> list = client.world.getEntitiesByClass(AbstractClientPlayerEntity.class, client.player.getBoundingBox().expand(TalkBubbles.CONFIG.chatRange),
                     EntityPredicates.EXCEPT_SPECTATOR);
             if (!TalkBubbles.CONFIG.showOwnBubble)
                 list.remove(client.player);
@@ -85,8 +85,7 @@ public class ChatHudMixin {
 
                     if (width % 2 != 0)
                         width++;
-
-                    ((ClientPlayerEntityAccessor) list.get(i)).setChatText(stringList, list.get(i).age, width, height);
+                    ((AbstractClientPlayerEntityAccessor) list.get(i)).setChatText(stringList, list.get(i).age, width, height);
                     break;
                 }
         }

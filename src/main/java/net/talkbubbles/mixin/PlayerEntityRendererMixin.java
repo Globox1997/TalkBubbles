@@ -17,7 +17,7 @@ import net.minecraft.client.render.entity.EntityRendererFactory.Context;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.talkbubbles.TalkBubbles;
-import net.talkbubbles.accessor.ClientPlayerEntityAccessor;
+import net.talkbubbles.accessor.AbstractClientPlayerEntityAccessor;
 import net.talkbubbles.util.RenderBubble;
 
 @Environment(EnvType.CLIENT)
@@ -32,14 +32,14 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
     private void renderMixin(AbstractClientPlayerEntity abstractClientPlayerEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i,
             CallbackInfo info) {
         if (!abstractClientPlayerEntity.isInvisible() && abstractClientPlayerEntity.isAlive()) {
-            int oldAge = ((ClientPlayerEntityAccessor) abstractClientPlayerEntity).getOldAge();
+            int oldAge = ((AbstractClientPlayerEntityAccessor) abstractClientPlayerEntity).getOldAge();
             if (oldAge != 0 && oldAge != -1) {
                 if (abstractClientPlayerEntity.age - oldAge > TalkBubbles.CONFIG.chatTime)
-                    ((ClientPlayerEntityAccessor) abstractClientPlayerEntity).setChatText(null, 0, 0, 0);
-                List<String> textList = ((ClientPlayerEntityAccessor) abstractClientPlayerEntity).getChatText();
+                    ((AbstractClientPlayerEntityAccessor) abstractClientPlayerEntity).setChatText(null, 0, 0, 0);
+                List<String> textList = ((AbstractClientPlayerEntityAccessor) abstractClientPlayerEntity).getChatText();
                 if (textList != null && !textList.isEmpty()) {
                     RenderBubble.renderBubble(matrixStack, vertexConsumerProvider, this.getTextRenderer(), this.dispatcher, textList,
-                            ((ClientPlayerEntityAccessor) abstractClientPlayerEntity).getWidth(), ((ClientPlayerEntityAccessor) abstractClientPlayerEntity).getHeight(),
+                            ((AbstractClientPlayerEntityAccessor) abstractClientPlayerEntity).getWidth(), ((AbstractClientPlayerEntityAccessor) abstractClientPlayerEntity).getHeight(),
                             abstractClientPlayerEntity.getHeight(), i);
                 }
             }

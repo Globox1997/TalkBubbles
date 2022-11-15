@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
-public interface ClientPlayerEntityAccessor {
+public interface AbstractClientPlayerEntityAccessor {
 
     public void setChatText(List<String> text, int currentAge, int width, int height);
 

@@ -6,10 +6,10 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 
 import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.talkbubbles.accessor.ClientPlayerEntityAccessor;
+import net.talkbubbles.accessor.AbstractClientPlayerEntityAccessor;
 
 @Mixin(AbstractClientPlayerEntity.class)
-public class AbstractClientPlayerEntityMixin implements ClientPlayerEntityAccessor {
+public class AbstractClientPlayerEntityMixin implements AbstractClientPlayerEntityAccessor {
 
     @Nullable
     private List<String> chatTextList = null;

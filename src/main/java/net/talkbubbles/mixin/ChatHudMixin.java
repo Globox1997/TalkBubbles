@@ -40,7 +40,7 @@ public class ChatHudMixin {
     // onChatMessage is now done in MessageHandler.class
     @Inject(method = "Lnet/minecraft/client/gui/hud/ChatHud;addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;Lnet/minecraft/client/gui/hud/MessageIndicator;)V", at = @At("HEAD"))
     private void addMessageMixin(Text message, @Nullable MessageSignatureData signature, @Nullable MessageIndicator indicator, CallbackInfo info) {
-        if (extractSender(message) != null) {
+        if (client != null && client.player != null && extractSender(message) != null) {
             List<AbstractClientPlayerEntity> list = client.world.getEntitiesByClass(AbstractClientPlayerEntity.class, client.player.getBoundingBox().expand(TalkBubbles.CONFIG.chatRange),
                     EntityPredicates.EXCEPT_SPECTATOR);
             if (!TalkBubbles.CONFIG.showOwnBubble)

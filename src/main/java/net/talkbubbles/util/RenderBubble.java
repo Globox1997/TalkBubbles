@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.font.TextRenderer;
@@ -12,8 +15,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.RotationAxis;
 import net.talkbubbles.TalkBubbles;
 
 @Environment(EnvType.CLIENT)
@@ -29,7 +31,9 @@ public class RenderBubble {
         int backgroundHeight = height;
 
         matrixStack.translate(0.0D, playerHeight + 0.9F + (backgroundHeight > 5 ? 0.1F : 0.0F), 0.0D);
-        matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(entityRenderDispatcher.getRotation().toEulerXyzDegrees().getY()));
+        // matrixStack.multiply(RotationAxis.POSITIVE_Y.getDegreesQuaternion(entityRenderDispatcher.getRotation().toEulerXyzDegrees().getY()));´
+        // Not sure if this is now the right way
+        matrixStack.multiply(RotationAxis.POSITIVE_Y.rotation(entityRenderDispatcher.getRotation().getEulerAnglesZXY(new Vector3f()).y()));
 
         matrixStack.scale(-0.025F, -0.025F, 0.025F);
 

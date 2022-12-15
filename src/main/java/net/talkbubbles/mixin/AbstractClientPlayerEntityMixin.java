@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.talkbubbles.accessor.AbstractClientPlayerEntityAccessor;
 
+@Environment(EnvType.CLIENT)
 @Mixin(AbstractClientPlayerEntity.class)
 public class AbstractClientPlayerEntityMixin implements AbstractClientPlayerEntityAccessor {
 

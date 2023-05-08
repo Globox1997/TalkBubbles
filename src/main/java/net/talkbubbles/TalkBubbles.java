@@ -5,6 +5,9 @@ import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
 import net.talkbubbles.config.TalkBubblesConfig;
 
+
+// TODO: Fix chat bubble transparency affecting water and player
+
 public class TalkBubbles implements ClientModInitializer {
 
     public static TalkBubblesConfig CONFIG = new TalkBubblesConfig();

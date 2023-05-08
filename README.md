@@ -1,4 +1,4 @@
-# TalkBubbles BRANCH SHOUOD BE CALED 1.19.4
+# TalkBubbles
 
 TalkBubbles adds bubbles above your head when texting other players.
 

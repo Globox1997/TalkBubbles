@@ -17,6 +17,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 import net.talkbubbles.TalkBubbles;
+import org.w3c.dom.Text;
 
 @Environment(EnvType.CLIENT)
 public class RenderBubble {
@@ -77,7 +78,17 @@ public class RenderBubble {
         RenderSystem.disablePolygonOffset();
         for (int u = textList.size(); u > 0; u--) {
             float h = (float) (-textRenderer.getWidth(textList.get(u - 1))) / 2.0F;
-            textRenderer.draw(textList.get(u - 1), h, ((float) textList.size() + (u - textList.size()) * 9), TalkBubbles.CONFIG.chatColor, false, matrix4f, vertexConsumerProvider, false, 0, i);
+            textRenderer.draw(
+                    textList.get(u - 1),
+                    h,
+                    ((float) textList.size() + (u - textList.size()) * 9),
+                    TalkBubbles.CONFIG.chatColor,
+                    false,
+                    matrix4f,
+                    vertexConsumerProvider,
+                    TextRenderer.TextLayerType.NORMAL,
+                    0,
+                    i);
         }
         matrixStack.pop();
 

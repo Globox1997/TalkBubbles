@@ -17,7 +17,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 import net.talkbubbles.TalkBubbles;
-import org.w3c.dom.Text;
 
 @Environment(EnvType.CLIENT)
 public class RenderBubble {
@@ -93,6 +92,7 @@ public class RenderBubble {
         matrixStack.pop();
 
         RenderSystem.disableBlend();
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
 }

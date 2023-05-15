@@ -5,6 +5,8 @@ import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
 import net.talkbubbles.config.TalkBubblesConfig;
 
+
+
 public class TalkBubbles implements ClientModInitializer {
 
     public static TalkBubblesConfig CONFIG = new TalkBubblesConfig();

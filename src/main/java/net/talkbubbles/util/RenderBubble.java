@@ -77,11 +77,22 @@ public class RenderBubble {
         RenderSystem.disablePolygonOffset();
         for (int u = textList.size(); u > 0; u--) {
             float h = (float) (-textRenderer.getWidth(textList.get(u - 1))) / 2.0F;
-            textRenderer.draw(textList.get(u - 1), h, ((float) textList.size() + (u - textList.size()) * 9), TalkBubbles.CONFIG.chatColor, false, matrix4f, vertexConsumerProvider, false, 0, i);
+            textRenderer.draw(
+                    textList.get(u - 1),
+                    h,
+                    ((float) textList.size() + (u - textList.size()) * 9),
+                    TalkBubbles.CONFIG.chatColor,
+                    false,
+                    matrix4f,
+                    vertexConsumerProvider,
+                    TextRenderer.TextLayerType.NORMAL,
+                    0,
+                    i);
         }
         matrixStack.pop();
 
         RenderSystem.disableBlend();
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
 }

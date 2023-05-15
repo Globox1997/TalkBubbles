@@ -25,7 +25,7 @@ dependencies {
     modImplementation("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    // ModMenu
+//     ModMenu
     modCompileOnly modRuntimeOnly("com.terraformersmc:modmenu:${project.mod_menu_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }

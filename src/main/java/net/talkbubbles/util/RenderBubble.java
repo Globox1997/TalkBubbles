@@ -5,6 +5,7 @@ import java.util.List;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import org.joml.Matrix4f;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import net.fabricmc.api.EnvType;
@@ -30,11 +31,8 @@ public class RenderBubble {
         int backgroundWidth = width;
         int backgroundHeight = height;
 
-        matrixStack.translate(0.0D, playerHeight + 0.9F + (backgroundHeight > 5 ? 0.1F : 0.0F), 0.0D);
-        // matrixStack.multiply(RotationAxis.POSITIVE_Y.getDegreesQuaternion(entityRenderDispatcher.getRotation().toEulerXyzDegrees().getY()));´
-        // Not sure if this is now the right way
-        matrixStack.multiply(RotationAxis.POSITIVE_Y.rotation(entityRenderDispatcher.getRotation().getEulerAnglesZXY(new Vector3f()).y()));
-
+        matrixStack.translate(0.0D, playerHeight + 0.9F + (backgroundHeight > 5 ? 0.1F : 0.0F) + TalkBubbles.CONFIG.chatHeight, 0.0D);
+        matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(toEulerXyzDegrees(entityRenderDispatcher.getRotation()).y()));
         matrixStack.scale(-0.025F, -0.025F, 0.025F);
 
         Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();
@@ -77,22 +75,33 @@ public class RenderBubble {
         RenderSystem.disablePolygonOffset();
         for (int u = textList.size(); u > 0; u--) {
             float h = (float) (-textRenderer.getWidth(textList.get(u - 1))) / 2.0F;
-            textRenderer.draw(
-                    textList.get(u - 1),
-                    h,
-                    ((float) textList.size() + (u - textList.size()) * 9),
-                    TalkBubbles.CONFIG.chatColor,
-                    false,
-                    matrix4f,
-                    vertexConsumerProvider,
-                    TextRenderer.TextLayerType.NORMAL,
-                    0,
-                    i);
+            textRenderer.draw(textList.get(u - 1), h, ((float) textList.size() + (u - textList.size()) * 9), TalkBubbles.CONFIG.chatColor, false, matrix4f, vertexConsumerProvider,
+                    TextRenderer.TextLayerType.NORMAL, 0, i);
         }
         matrixStack.pop();
 
         RenderSystem.disableBlend();
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+    }
+
+    private static Vector3f toEulerXyz(Quaternionf quaternionf) {
+        float f = quaternionf.w() * quaternionf.w();
+        float g = quaternionf.x() * quaternionf.x();
+        float h = quaternionf.y() * quaternionf.y();
+        float i = quaternionf.z() * quaternionf.z();
+        float j = f + g + h + i;
+        float k = 2.0f * quaternionf.w() * quaternionf.x() - 2.0f * quaternionf.y() * quaternionf.z();
+        float l = (float) Math.asin(k / j);
+        if (Math.abs(k) > 0.999f * j) {
+            return new Vector3f(l, 2.0f * (float) Math.atan2(quaternionf.y(), quaternionf.w()), 0.0f);
+        }
+        return new Vector3f(l, (float) Math.atan2(2.0f * quaternionf.x() * quaternionf.z() + 2.0f * quaternionf.y() * quaternionf.w(), f - g - h + i),
+                (float) Math.atan2(2.0f * quaternionf.x() * quaternionf.y() + 2.0f * quaternionf.w() * quaternionf.z(), f - g + h - i));
+    }
+
+    private static Vector3f toEulerXyzDegrees(Quaternionf quaternionf) {
+        Vector3f vec3f = RenderBubble.toEulerXyz(quaternionf);
+        return new Vector3f((float) Math.toDegrees(vec3f.x()), (float) Math.toDegrees(vec3f.y()), (float) Math.toDegrees(vec3f.z()));
     }
 
 }

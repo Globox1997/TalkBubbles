@@ -1,6 +1,6 @@
 ### Added:
 - 
 ### Fixed:
-- Fixed bubble direction
-### Changed:
 - 
+### Changed:
+- Updated to mc 1.20

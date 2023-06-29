@@ -40,15 +40,19 @@ public class ChatHudMixin {
     // onChatMessage is now done in MessageHandler.class
     @Inject(method = "Lnet/minecraft/client/gui/hud/ChatHud;addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;Lnet/minecraft/client/gui/hud/MessageIndicator;)V", at = @At("HEAD"))
     private void addMessageMixin(Text message, @Nullable MessageSignatureData signature, @Nullable MessageIndicator indicator, CallbackInfo info) {
-        if (client != null && client.player != null && extractSender(message) != null) {
+        if (client != null && client.player != null && !extractSender(message).isEmpty()) {
+            String detectedSenderName = extractSender(message);
+            UUID senderUUID = this.client.getSocialInteractionsManager().getUuid(detectedSenderName);
+
             List<AbstractClientPlayerEntity> list = client.world.getEntitiesByClass(AbstractClientPlayerEntity.class, client.player.getBoundingBox().expand(TalkBubbles.CONFIG.chatRange),
                     EntityPredicates.EXCEPT_SPECTATOR);
+
             if (!TalkBubbles.CONFIG.showOwnBubble)
                 list.remove(client.player);
             for (int i = 0; i < list.size(); i++)
-                if (list.get(i).getUuid().equals(extractSender(message))) {
+                if (list.get(i).getUuid().equals(senderUUID)) {
                     String stringMessage = message.getString();
-                    stringMessage = stringMessage.replace("<" + StringUtils.substringBetween(stringMessage, "<", ">") + "> ", "");
+                    stringMessage = stringMessage.replaceFirst("(§.)?\\W+" + detectedSenderName + "[^\\w§]+(§.)?", "");
                     String[] string = stringMessage.split(" ");
                     List<String> stringList = new ArrayList<>();
                     String stringCollector = "";
@@ -92,12 +96,18 @@ public class ChatHudMixin {
 
     }
 
-    private UUID extractSender(Text text) {
-        String string = TextVisitFactory.removeFormattingCodes(text);
-        String string2 = StringUtils.substringBetween(string, "<", ">");
-        if (string2 == null) {
-            return Util.NIL_UUID;
+    private String extractSender(Text text) {
+        String[] words = text.getString().split("(§.)|[^\\w§]+");
+
+        for (String word : words) {
+            if (word.isEmpty()) continue;
+
+            UUID possibleUUID = this.client.getSocialInteractionsManager().getUuid(word);
+            if (possibleUUID != Util.NIL_UUID) {
+                return word;
+            }
         }
-        return this.client.getSocialInteractionsManager().getUuid(string2);
+
+        return "";
     }
 }

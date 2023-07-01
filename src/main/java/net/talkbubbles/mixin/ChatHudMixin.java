@@ -53,7 +53,6 @@ public class ChatHudMixin {
                 if (list.get(i).getUuid().equals(senderUUID)) {
                     String stringMessage = message.getString();
                     stringMessage = stringMessage.replaceFirst("[\\s\\S]*" + detectedSenderName + "([^\\w§]|(§.)?)+\\s+", "");
-                    TalkBubbles.LOGGER.error(stringMessage);
                     String[] string = stringMessage.split(" ");
                     List<String> stringList = new ArrayList<>();
                     String stringCollector = "";

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,7 +22,6 @@ import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.network.message.MessageSignatureData;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.text.Text;
-import net.minecraft.text.TextVisitFactory;
 import net.minecraft.util.Util;
 import net.talkbubbles.TalkBubbles;
 import net.talkbubbles.accessor.AbstractClientPlayerEntityAccessor;
@@ -100,7 +98,8 @@ public class ChatHudMixin {
         String[] words = text.getString().split("(§.)|[^\\w§]+");
 
         for (String word : words) {
-            if (word.isEmpty()) continue;
+            if (word.isEmpty())
+                continue;
 
             UUID possibleUUID = this.client.getSocialInteractionsManager().getUuid(word);
             if (possibleUUID != Util.NIL_UUID) {

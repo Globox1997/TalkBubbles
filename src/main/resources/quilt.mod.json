@@ -1,0 +1,64 @@
+{
+    "schemaVersion": 1,
+    "mixins": "talkbubbles.mixins.json",
+    "quilt_loader": {
+        "group": "net.talkbubbles",
+        "id": "talkbubbles",
+        "version": "${version}",
+        "metadata": {
+            "name": "Talk Bubbles",
+            "description": "Talk Bubbles add bubbles above your head",
+            "contributors": {
+                "Globox_Z": "Owner"
+            },
+            "contact": {
+                "homepage": "https://www.curseforge.com/minecraft/mc-mods/talkbubbles",
+                "sources": "https://github.com/Globox1997/TalkBubbles",
+                "issues": "https://github.com/Globox1997/TalkBubbles/issues"
+            },
+            "icon": "assets/talkbubbles/icon.png"
+        },
+        "intermediate_mappings": "net.fabricmc:intermediary",
+        "license": "MIT",
+        "environment": "*",
+        "entrypoints": {
+            "client": [
+                "net.talkbubbles.TalkBubbles"
+            ],
+            "modmenu": [
+                "net.talkbubbles.config.ModMenuIntegration"
+            ]
+        },
+        "depends": [
+            {
+                "id": "minecraft",
+                "versions": ">=${minecraft_version}"
+            },
+            {
+                "id": "java",
+                "versions": ">=17"
+            },
+            {
+                "id": "quilted_fabric_api",
+                "versions": ">=7.0.2"
+            },
+            {
+                "id": "quilt_loader",
+                "versions": ">=0.19.1"
+            },
+            {
+                "id": "cloth-config2",
+                "versions": ">=${cloth_config_version}"
+            }
+        ],
+        "suggests": {
+            "another-mod": "*"
+        },
+        "custom": {
+            "mc-publish": {
+                "modrinth": "BUpChT1v",
+                "curseforge": 532113
+            }
+        }
+    }
+}

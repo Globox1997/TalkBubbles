@@ -1,6 +1,6 @@
 ### Added:
 - 
 ### Fixed:
-- Fixed bugs by belcar-s
+- Fixed bubble not rotating on the X axis [pull request ??]()
 ### Changed:
-- Updated to mc 1.20.1
+- Updated to mc 1.20.2

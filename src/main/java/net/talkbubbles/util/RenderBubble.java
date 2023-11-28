@@ -35,6 +35,7 @@ public class RenderBubble {
 
         matrixStack.translate(0.0D, playerHeight + 0.9F + (backgroundHeight > 5 ? 0.1F : 0.0F) + TalkBubbles.CONFIG.chatHeight, 0.0D);
         matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(toEulerXyzDegrees(entityRenderDispatcher.getRotation()).y()));
+        matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(toEulerXyzDegrees(entityRenderDispatcher.getRotation()).x()));
         matrixStack.scale(-0.025F, -0.025F, 0.025F);
 
         Matrix4f matrix4f = matrixStack.peek().getPositionMatrix();

@@ -9,5 +9,6 @@
     "text.autoconfig.talkbubbles.option.backgroundRed": "Background Red",
     "text.autoconfig.talkbubbles.option.backgroundGreen": "Background Green",
     "text.autoconfig.talkbubbles.option.backgroundBlue": "Background Blue",
-    "text.autoconfig.talkbubbles.option.showOwnBubble": "Show Own Bubble"
+    "text.autoconfig.talkbubbles.option.showOwnBubble": "Show Own Bubble",
+    "text.autoconfig.talkbubbles.option.maxUUIDWordCheck": "Max UUID Word Check"
 }

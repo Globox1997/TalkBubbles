@@ -1,6 +1,7 @@
 ### Added:
-- 
+- Added max check config option
 ### Fixed:
-- Fixed bugs by belcar-s
+- Fixed advancement bubble
+- Fixed command bubble
 ### Changed:
-- Updated to mc 1.20.1
+- 

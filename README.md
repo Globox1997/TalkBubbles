@@ -1,3 +1,7 @@
+fix for [issue 23](https://github.com/Globox1997/TalkBubbles/issues/23)
+
+---
+
 # TalkBubbles
 
 TalkBubbles adds bubbles above your head when texting other players.

@@ -4,42 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
+import net.minecraft.client.multiplayer.chat.GuiMessageSource;
+import net.minecraft.client.multiplayer.chat.GuiMessageTag;
+import net.minecraft.network.chat.MessageSignature;
+import net.minecraft.util.Util;
+import org.jspecify.annotations.Nullable;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.Util;
-import net.minecraft.client.GuiMessageTag;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MessageSignature;
 import net.minecraft.world.entity.EntitySelector;
 import net.talkbubbles.TalkBubbles;
 import net.talkbubbles.accessor.AbstractClientPlayerEntityAccessor;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(ChatComponent.class)
-public class ChatHudMixin {
+public class ChatComponentMixin {
 
     @Shadow
     @Final
     @Mutable
     private Minecraft minecraft;
 
-    // onChatMessage is now done in MessageHandler.class
-    @Inject(method = "addMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/MessageSignature;Lnet/minecraft/client/GuiMessageTag;)V", at = @At("HEAD"))
-    private void addMessageMixin(Component message, @Nullable MessageSignature signature, @Nullable GuiMessageTag indicator, CallbackInfo info) {
-        if (minecraft != null && minecraft.player != null) {
-            String detectedSenderName = extractSender(message);
+    @Inject(method = "addMessage", at = @At("HEAD"))
+    private void addMessageMixin(Component contents, @Nullable MessageSignature signature, GuiMessageSource source, @Nullable GuiMessageTag tag, CallbackInfo info) {
+        if (minecraft != null && minecraft.player != null && minecraft.level != null) {
+            String detectedSenderName = extractSender(contents);
             if (!detectedSenderName.isEmpty()) {
                 UUID senderUUID = this.minecraft.getPlayerSocialManager().getDiscoveredUUID(detectedSenderName);
 
@@ -49,9 +46,9 @@ public class ChatHudMixin {
                 if (!TalkBubbles.CONFIG.showOwnBubble) {
                     list.remove(minecraft.player);
                 }
-                for (int i = 0; i < list.size(); i++)
-                    if (list.get(i).getUUID().equals(senderUUID)) {
-                        String stringMessage = message.getString();
+                for (AbstractClientPlayer abstractClientPlayer : list) {
+                    if (abstractClientPlayer.getUUID().equals(senderUUID)) {
+                        String stringMessage = contents.getString();
                         stringMessage = stringMessage.replaceFirst("[\\s\\S]*" + detectedSenderName + "([^\\p{L}§]|(§.)?)+\\s+", "");
                         String[] string = stringMessage.split(" ");
                         List<String> stringList = new ArrayList<>();
@@ -93,14 +90,16 @@ public class ChatHudMixin {
                         if (width % 2 != 0) {
                             width++;
                         }
-                        ((AbstractClientPlayerEntityAccessor) list.get(i)).setChatText(stringList, list.get(i).tickCount, width, height);
+                        ((AbstractClientPlayerEntityAccessor) abstractClientPlayer).talkBubbles$setChatText(stringList, abstractClientPlayer.tickCount, width, height);
                         break;
                     }
+                }
             }
         }
 
     }
 
+    @Unique
     private String extractSender(Component text) {
         String[] words = text.getString().split("(§.)|[^\\w§]+");
         String[] parts = text.toString().split("key='");

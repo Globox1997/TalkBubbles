@@ -6,14 +6,14 @@ import org.jetbrains.annotations.Nullable;
 
 public interface AbstractClientPlayerEntityAccessor {
 
-    public void setChatText(List<String> text, int currentAge, int width, int height);
+    void talkBubbles$setChatText(List<String> text, int currentAge, int width, int height);
 
     @Nullable
-    public List<String> getChatText();
+    List<String> talkBubbles$getChatText();
 
-    public int getOldAge();
+    int talkBubbles$getOldAge();
 
-    public int getWidth();
+    int talkBubbles$getWidth();
 
-    public int getHeight();
+    int talkBubbles$getHeight();
 }

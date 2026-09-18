@@ -3,4 +3,4 @@
 ### Fixed:
 - 
 ### Changed:
-- Updated to mc 1.21.1
+- Updated to mc 26.3

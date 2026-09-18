@@ -2,13 +2,15 @@
   "required": true,
   "minVersion": "0.8",
   "package": "net.talkbubbles.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "mixins": [],
   "client": [
-    "PlayerEntityRendererMixin",
     "AbstractClientPlayerEntityMixin",
-    "ChatHudMixin",
-    "DrawContextAccessor"
+    "AvatarRendererMixin",
+    "AvatarRenderStateMixin",
+    "ChatComponentMixin",
+    "LivingEntityRendererMixin",
+    "accessor.AvatarRenderStateAccessor",
   ],
   "injectors": {
     "defaultRequire": 1

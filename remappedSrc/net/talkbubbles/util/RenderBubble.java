@@ -26,7 +26,7 @@ public class RenderBubble {
     private static final ResourceLocation BACKGROUND = ResourceLocation.parse("talkbubbles:textures/gui/background.png");
 
     public static void renderBubble(PoseStack matrixStack, MultiBufferSource vertexConsumerProvider, Font textRenderer, EntityRenderDispatcher entityRenderDispatcher,
-                                    List<String> textList, int width, int height, float playerHeight, int i) {
+            List<String> textList, int width, int height, float playerHeight, int i) {
         matrixStack.pushPose();
 
         int backgroundWidth = width;
